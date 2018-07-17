@@ -10,7 +10,6 @@ export default () => (
             <Route path="/login" component={Login} />
             <Route path="/404" component={NotUse} />
             <Route path="/app" component={App} />
-            {/*<Route path="/*" render={() => <Redirect to="/404" push />} />*/}
             <Route path="/" render={() => <Redirect to="/app" push />} />
         </Switch>
     </Router>

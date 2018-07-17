@@ -18,14 +18,15 @@ class Login extends React.Component {
     //         history.push('/');
     //     }
     // }
-    /*componentDidUpdate (prevProps) { // React 16.3+弃用componentWillReceiveProps
+    componentDidUpdate(prevProps) { // React 16.3+弃用componentWillReceiveProps
         const {auth: nextAuth = {}, history} = this.props;
+        console.log(nextAuth);
         // const { history } = this.props;
         if (nextAuth.data && nextAuth.data.uid) {   // 判断是否登陆
             localStorage.setItem('user', JSON.stringify(nextAuth.data));
             history.push('/');
         }
-    }*/
+    }
 
     /*handleSubmit = (e) => {
         e.preventDefault();
@@ -41,7 +42,7 @@ class Login extends React.Component {
     gitHub = () => {
         window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin';
     };*/
-    render () {
+    render() {
         // const { getFieldDecorator } = this.props.form;
         return (
             <div className="login">
