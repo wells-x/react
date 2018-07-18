@@ -148,6 +148,7 @@ module.exports = {
                     /\.html$/,
                     /\.(js|jsx)$/,
                     /\.less$/,
+                    /\.scss$/,
                     /\.css$/,
                     /\.json$/,
                     /\.bmp$/,
@@ -184,7 +185,7 @@ module.exports = {
             },
             // Parse less files and modify variables
             {
-                test: /\.less$/,
+                test: /\.(less|scss)$/,
                 use: [
                     require.resolve('style-loader'),
                     ({resource}) => ({

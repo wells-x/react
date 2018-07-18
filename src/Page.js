@@ -2,7 +2,8 @@ import React from 'react';
 import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Login from './view/Login'
 import NotUse from './view/NotFound'
-import App from './App'
+// import App from './App'
+import App from './view/Layout'
 
 export default () => (
     <Router>
