@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import Index from "./app/Index";
 
 class Layout extends Component {
@@ -13,6 +13,7 @@ class Layout extends Component {
                 </div>
                 <Switch>
                     <Route path={`${match.url}/index`} component={Index} />
+                    <Route path={`${match.url}/`} render={() => <Redirect to={`${match.url}/index`} />} />
                 </Switch>
             </div>
         )

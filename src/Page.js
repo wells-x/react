@@ -12,6 +12,7 @@ export default () => (
             <Route path="/404" component={NotUse} />
             <Route path="/app" component={App} />
             <Route path="/" render={() => <Redirect to="/app" push />} />
+            <Route component={NotUse} />
         </Switch>
     </Router>
 )
