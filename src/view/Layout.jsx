@@ -5,7 +5,6 @@ import Index from "./app/Index";
 class Layout extends Component {
     render() {
         const {match} = this.props;
-        console.log(match);
         return (
             <div>
                 <div>

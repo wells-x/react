@@ -1,6 +1,6 @@
 import React from 'react';
 import img from '../style/imgs/404.png';
-
+import './notFound.scss'
 
 class NotFound extends React.Component {
     state = {
@@ -11,9 +11,10 @@ class NotFound extends React.Component {
     };
 
     render() {
+        const {animated} = this.state;
         return (
-            <div className="center" style={{height: '100%', background: '#ececec', overflow: 'hidden'}}>
-                <img src={img} alt="404" className={`animated swing ${this.state.animated}`} onMouseEnter={this.enter} />
+            <div className="center not-found">
+                <img src={img} alt="404" className={`animated swing ${animated}`} onMouseEnter={this.enter} />
             </div>
         )
     }
