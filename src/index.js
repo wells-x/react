@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux';
+import {AppContainer} from 'react-hot-loader';
+import {Provider} from 'react-redux';
 import store from './store'
-import './style/lib/animate.css';
-import './index.css';
+import 'flex.css'
+import 'antd/dist/antd.css';
 import registerServiceWorker from './registerServiceWorker';
 import Page from './Page';
 
@@ -17,8 +17,7 @@ const render = Component => {   // 增加react-hot-loader保持状态刷新操�
             <Provider store={store}>
                 <Component store={store} />
             </Provider>
-        </AppContainer>
-        ,
+        </AppContainer>,
         document.getElementById('root')
     );
 };

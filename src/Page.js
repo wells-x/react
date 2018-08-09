@@ -1,18 +1,19 @@
 import React from 'react';
-import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch, Redirect,} from 'react-router-dom';
 import Login from './view/Login';
 import NotUse from './view/NotFound';
-import App from './view/Layout';
+import Layout from './view/Layout';
 
 export default () => (
     <Router>
         <Switch>
+            <Route path="/app" component={Layout} />
             <Route path="/login" component={Login} />
             <Route path="/404" component={NotUse} />
-            <Route path="/app" component={App} />
-            <Route component={NotUse} />
-            {/*<Route render={() => <Redirect to="/404" />} />*/}
             <Route path="/" render={() => <Redirect to="/app" push />} />
+            {/*<Route component={NotUse} />*/}
+            <Route render={() => <Redirect to="/404" />} />
         </Switch>
     </Router>
+
 )
