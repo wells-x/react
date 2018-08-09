@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import * as type from '../action/type';
 
+/*
 const handleData = (state = {isFetching: true, data: {}}, action) => {
     switch (action.type) {
         case type.REQUEST_DATA:
@@ -24,7 +25,21 @@ const httpData = (state = {}, action) => {
             return {...state, obj: {name: 'sss'}};
     }
 };
+*/
 
+const navStatus = (state = {}, action) => {
+    switch (action.type) {
+        case type.CHANGE_COLLAPSE:
+            // console.log(state);
+            return {...state};
+        case '':
+            break;
+        default:
+            // console.log(state);
+            return {...state, isCollapsed: false}
+    }
+};
 export default combineReducers({
-    httpData
+    // httpData
+    nav: navStatus
 });
