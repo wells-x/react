@@ -33,7 +33,7 @@ class Menus extends Component {
                  }>
                 <Menu defaultSelectedKeys={['1']}
                       defaultOpenKeys={['sub1']}
-                      mode="inline"
+                      mode="inline" theme="dark"
                       inlineCollapsed={this.props.collapsed}>
                     <Item key="1">
                         <Icon type="pie-chart" />

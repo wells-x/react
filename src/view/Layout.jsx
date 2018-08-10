@@ -5,9 +5,7 @@ import Index from "./app/Index";
 import Terminal from './app/Terminal';
 import Menu from "../components/Nav";
 import HeaderContent from '../components/Headers'
-// import {store} from "../store";
 
-// console.log(store);
 const {Header, Content, Sider} = Layout;
 
 class Layouts extends Component {
@@ -24,12 +22,12 @@ class Layouts extends Component {
         const {match} = this.props;
         return (
             <Layout style={{height: '100vh',}}>
-                <Header>
+                <Header style={{padding: 0,}}>
                     <HeaderContent />
                 </Header>
                 <Layout>
-                    <Sider theme="light" className="no-scroll" onCollapse={() => this.toggleCollapsed()}
-                           collapsible
+                    <Sider className="no-scroll" collapsible
+                           onCollapse={() => this.toggleCollapsed()}
                            style={{position: 'reletive'}}
                            collapsed={this.state.collapsed}>
                         <Menu collapsed={this.state.collapsed} />
@@ -49,21 +47,6 @@ class Layouts extends Component {
                 </Layout>
                 {/*<Footer>Footer</Footer>*/}
             </Layout>
-
-            /* <Layout>
-                 <Header>
-                     <HeaderContent />
-                 </Header>
-                 <Content>
-                     <Sider />
-                     <Switch>
-                         <Route path={`${match.url}/index`} component={Index} />
-                         <Route path={`${match.url}/`} render={() => <Redirect to={`${match.url}/index`} />} />
-                         {/!*<Route path={`${match.url}/`} render={() => <Redirect to={`/404`} />} />*!/}
-                     </Switch>
-                 </Content>
-                 <Footer />
-             </Layout>*/
         )
     }
 }
