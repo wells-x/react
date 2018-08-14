@@ -21,23 +21,24 @@ class Layouts extends Component {
     render() {
         const {match} = this.props;
         return (
-            <Layout style={{height: '100vh',}}>
-                <Header style={{padding: 0,}}>
+            <Layout theme="light" style={{height: '100vh',}}>
+                <Header style={{padding: 0, height: '54px'}}>
                     <HeaderContent />
                 </Header>
                 <Layout>
                     <Sider className="no-scroll" collapsible
                            onCollapse={() => this.toggleCollapsed()}
-                           style={{position: 'reletive'}}
+                           style={{position: 'reletive'}} theme="light"
                            collapsed={this.state.collapsed}>
                         <Menu collapsed={this.state.collapsed} />
                     </Sider>
                     <Content style={{padding: '10px 10px'}}>
-                        <h2 style={{background: '#fff', padding: '10px 20px'}} flex="main:left cross:center">
+                        <Header style={{background: '#fff', padding: '10px 20px', height: '50px'}}
+                                flex="main:left cross:center">
                             <Button type="primary" onClick={this.toggleCollapsed}>
                                 <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                             </Button>
-                        </h2>
+                        </Header>
                         <Switch>
                             <Route path={`${match.url}/index`} component={Index} />
                             <Route path={`${match.url}/terminal`} component={Terminal} />
