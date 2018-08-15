@@ -117,12 +117,12 @@
     "extends": "react-app"
   },
   "proxy": {
-    "/r": {
-      "target": "http://www.12301.local",
+    "/api": {
+      "target": "http://my.12301.local",
       "changeOrigin": true,
-      "cookieDomainRewrite": "192.168.20.200",
+      "cookieDomainRewrite": "localhost",
       "pathRewrite": {
-        "^/r": "/r"
+        "/api": ""
       }
     }
   }

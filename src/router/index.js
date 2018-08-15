@@ -9,6 +9,11 @@ import Application from "../view/app/Application";
 const
     router = [
         {
+            path: '/login',
+            exact: true,
+            component: Login,
+        },
+        {
             path: '/',
             component: Layout,
             routes: [
@@ -23,20 +28,16 @@ const
                 },
                 {
                     path: '/',
+                    exact: true,
                     redirect: '/index'
                 },
             ]
 
         },
         {
-            path: '/login',
-            exact: true,
-            component: Login,
-        },
-        {
             component: NotUse,
             exact: true,
-        }
+        },
     ];
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work

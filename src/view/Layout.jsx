@@ -31,17 +31,39 @@ class Layouts extends Component {
                            collapsed={this.state.collapsed}>
                         <Menu collapsed={this.state.collapsed} />
                     </Sider>
-                    <Content style={{padding: '10px 10px'}}>
-                        <Header style={{background: '#fff', padding: '10px 20px', height: '50px'}}
-                                flex="main:left cross:center">
+                    <Content style={{padding: '0'}}>
+                        <Header flex="main:left cross:center"
+                                style={{
+                                    background: '#fff',
+                                    margin: '10px 20px',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    height: '50px',
+                                }}>
                             <Button type="primary" onClick={this.toggleCollapsed} htmlType="button">
                                 <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                             </Button>
                         </Header>
-                        <Switch>
-                            {routes.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)}
-                        </Switch>
-                        <Footer>Footer</Footer>
+                        <div className="view-box" style={{
+                            minHeight: 'calc(100% - 130px)',
+                            background: '#fff',
+                            margin: '0 20px 0',
+                            padding: '0 20px',
+                            borderRadius: '5px',
+                        }}>
+                            <Switch flex="sdf">
+                                {routes.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)}
+                            </Switch>
+                        </div>
+
+                        <Footer flex="main:left cross:center"
+                                style={{
+                                    minHeight: '50px',
+                                    background: '#fff',
+                                    margin: '10px 0 0 0',
+                                    padding: '0 20px',
+                                }}
+                        >Footer</Footer>
                     </Content>
                 </Layout>
             </Layout>
