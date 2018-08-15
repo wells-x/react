@@ -41,7 +41,6 @@ const
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
 const RouteWithSubRoutes = route => {
-    console.log(route);
     return <Route
         path={route.path}
         render={props => (

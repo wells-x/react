@@ -9,7 +9,7 @@ class Headers extends Component {
                 <nav flex="main:left cross:center" style={{height: '100%'}}>
                     <figure flex="main:center cross:center"
                             style={{height: '100%', overflow: 'hidden', margin: 0, padding: 0}}>
-                        <img style={{}} src="//static.12301.cc/assets/build/images/pft-header-logo.png" alt="" />
+                        <img src="//static.12301.cc/assets/build/images/pft-header-logo.png" alt="" />
                     </figure>
                     <ul flex="main:left cross:center">
                         <li>
