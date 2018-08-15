@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Switch,} from 'react-router-dom'
 import {Layout, Button, Icon} from 'antd';
-import Index from "./app/Index";
-import Terminal from './app/Terminal';
 import Menu from "../components/Nav";
 import HeaderContent from '../components/Headers'
+import {RouteWithSubRoutes} from "../router";
 
 const {Header, Content, Sider, Footer} = Layout;
 
@@ -19,7 +18,7 @@ class Layouts extends Component {
     };
 
     render() {
-        const {match} = this.props;
+        const {routes} = this.props;
         return (
             <Layout theme="light" style={{height: '100vh',}}>
                 <Header style={{padding: 0, height: '54px'}}>
@@ -32,22 +31,41 @@ class Layouts extends Component {
                            collapsed={this.state.collapsed}>
                         <Menu collapsed={this.state.collapsed} />
                     </Sider>
-                    <Content style={{padding: '10px 10px'}}>
-                        <Header style={{background: '#fff', padding: '10px 20px', height: '50px'}}
-                                flex="main:left cross:center">
+                    <Content style={{padding: '0'}}>
+                        <Header flex="main:left cross:center"
+                                style={{
+                                    background: '#fff',
+                                    margin: '10px 20px',
+                                    padding: '10px 20px',
+                                    borderRadius: '5px',
+                                    height: '50px',
+                                }}>
                             <Button type="primary" onClick={this.toggleCollapsed} htmlType="button">
                                 <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                             </Button>
                         </Header>
-                        <Switch>
-                            <Route path={`${match.url}/index`} component={Index} />
-                            <Route path={`${match.url}/terminal`} component={Terminal} />
-                            <Route path={`${match.url}/`} render={() => <Redirect to={`${match.url}/index`} />} />
-                        </Switch>
-                        <Footer>Footer</Footer>
+                        <div className="view-box" style={{
+                            minHeight: 'calc(100% - 130px)',
+                            background: '#fff',
+                            margin: '0 20px 0',
+                            padding: '0 20px',
+                            borderRadius: '5px',
+                        }}>
+                            <Switch flex="sdf">
+                                {routes.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)}
+                            </Switch>
+                        </div>
+
+                        <Footer flex="main:left cross:center"
+                                style={{
+                                    minHeight: '50px',
+                                    background: '#fff',
+                                    margin: '10px 0 0 0',
+                                    padding: '0 20px',
+                                }}
+                        >Footer</Footer>
                     </Content>
                 </Layout>
-                {/**/}
             </Layout>
         )
     }
