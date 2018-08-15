@@ -21,9 +21,9 @@ const
             path: '/',
             redirect: '/app',
             push: true,
+            exact: true,
         },
         {
-            path: '',
             redirect: '/404'
         }
     ];

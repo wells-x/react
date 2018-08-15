@@ -1,7 +1,7 @@
 import React from 'react';
 import img from '../assets/imgs/404.png';
 import './notFound.scss'
-
+import 'animate.css'
 class NotFound extends React.Component {
     state = {
         animated: ''
