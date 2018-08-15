@@ -20,9 +20,9 @@ const router = {
             path: '/',
             redirect: '/app',
             push: true,
+            exact: true,
         },
         {
-            path: '',
             redirect: '/404'
         }
     ]
