@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Switch,} from 'react-router-dom'
 import {Layout, Button, Icon} from 'antd';
-import Index from "./app/Index";
-import Terminal from './app/Terminal';
 import Menu from "../components/Nav";
 import HeaderContent from '../components/Headers'
+import {RouteWithSubRoutes} from "../router";
 
 const {Header, Content, Sider, Footer} = Layout;
 
@@ -19,7 +18,7 @@ class Layouts extends Component {
     };
 
     render() {
-        const {match} = this.props;
+        const {routes} = this.props;
         return (
             <Layout theme="light" style={{height: '100vh',}}>
                 <Header style={{padding: 0, height: '54px'}}>
@@ -40,14 +39,11 @@ class Layouts extends Component {
                             </Button>
                         </Header>
                         <Switch>
-                            <Route path={`${match.url}/index`} component={Index} />
-                            <Route path={`${match.url}/terminal`} component={Terminal} />
-                            <Route path={`${match.url}/`} render={() => <Redirect to={`${match.url}/index`} />} />
+                            {routes.map((route, index) => <RouteWithSubRoutes key={index} {...route} />)}
                         </Switch>
                         <Footer>Footer</Footer>
                     </Content>
                 </Layout>
-                {/**/}
             </Layout>
         )
     }

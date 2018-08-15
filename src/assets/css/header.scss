@@ -1,15 +1,38 @@
 header {
-  background: #457ed8;
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  nav{
-    font-size: 14px;
-    ul,li{
-      height: 100%;
+    background: #457ed8;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    nav {
+        font-size: 14px;
+        ul, li {
+            height: 100%;
+        }
+        ul {
+            width: 300px;
+            margin: 0;
+            li {
+                height: 30px;
+                line-height: 30px;
+                a {
+                    display: inline-block;
+                    color: inherit;
+                    border-bottom: 2px solid transparent;
+                    margin: 0 20px;
+                    padding: 0 10px;
+                    text-decoration: none;
+                    &.active {
+                        border-color: #fff;
+                    }
+                    &:link,
+                    &:active,
+                    &:hover,
+                    &:visited {
+                        text-decoration: none;
+                        color: inherit;
+                    }
+                }
+            }
+        }
     }
-    ul{
-      width: 300px;
-    }
-  }
 }
