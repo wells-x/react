@@ -2,19 +2,20 @@ import Login from '../view/Login';
 import NotUse from '../view/NotFound';
 import Layout from '../view/Layout'
 
-const router = {
-    routes: [
+const
+    router = [
         {
             path: '/app',
-            components: Layout,
+            component: Layout,
+
         },
         {
             path: '/login',
-            components: Login,
+            component: Login,
         },
         {
             path: '/404',
-            components: NotUse,
+            component: NotUse,
         },
         {
             path: '/',
@@ -25,7 +26,6 @@ const router = {
             path: '',
             redirect: '/404'
         }
-    ]
-};
+    ];
 export default router;
 export {router}

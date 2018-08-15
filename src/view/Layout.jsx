@@ -6,7 +6,7 @@ import Terminal from './app/Terminal';
 import Menu from "../components/Nav";
 import HeaderContent from '../components/Headers'
 
-const {Header, Content, Sider} = Layout;
+const {Header, Content, Sider, Footer} = Layout;
 
 class Layouts extends Component {
     state = {
@@ -35,7 +35,7 @@ class Layouts extends Component {
                     <Content style={{padding: '10px 10px'}}>
                         <Header style={{background: '#fff', padding: '10px 20px', height: '50px'}}
                                 flex="main:left cross:center">
-                            <Button type="primary" onClick={this.toggleCollapsed}>
+                            <Button type="primary" onClick={this.toggleCollapsed} htmlType="button">
                                 <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                             </Button>
                         </Header>
@@ -44,9 +44,10 @@ class Layouts extends Component {
                             <Route path={`${match.url}/terminal`} component={Terminal} />
                             <Route path={`${match.url}/`} render={() => <Redirect to={`${match.url}/index`} />} />
                         </Switch>
+                        <Footer>Footer</Footer>
                     </Content>
                 </Layout>
-                {/*<Footer>Footer</Footer>*/}
+                {/**/}
             </Layout>
         )
     }
