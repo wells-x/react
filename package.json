@@ -120,9 +120,17 @@
     "/api": {
       "target": "http://my.12301.local",
       "changeOrigin": true,
-      "cookieDomainRewrite": "localhost",
+      "cookieDomainRewrite": "localhost:3001",
       "pathRewrite": {
         "/api": ""
+      },
+      "router": {
+        "//my.12301.local" : "http://localhost:3001"
+      },
+      "headers": {
+        "Referer": "http://my.12301.local/dlogin_n.html",
+        "Origin": "http://my.12301.local",
+        "host": "http://my.12301.local"
       }
     }
   }

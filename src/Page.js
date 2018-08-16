@@ -2,8 +2,6 @@ import React from 'react';
 import {HashRouter as Router, Switch,} from 'react-router-dom';
 import {router, RouteWithSubRoutes} from "./router";
 
-// console.log(router);
-
 export default () => (
     <Router>
         <Switch>
