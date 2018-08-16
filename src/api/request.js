@@ -1,6 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-// import {stringfy} from 'axios'
 
 const request = axios.create({
     baseURL: '/api/'

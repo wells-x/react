@@ -6,7 +6,7 @@ export default () => (
     <Router>
         <Switch>
             {router.map((route, index) => {
-                console.log(route);
+                // console.log(route);
                 return <RouteWithSubRoutes key={index} {...route} />
             })}
         </Switch>

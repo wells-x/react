@@ -2,16 +2,21 @@ import React, {Component} from 'react';
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 import './login.scss';
 import {dlogin} from "../api/login";
+import md5 from 'md5';
 
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err, {passport, password}) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                dlogin(values)
+                dlogin({passport, password: md5(password)})
+                    .then(res => {
+                        console.log(res);
+                        console.log(this);
+                        this.props.history.push('/')
+                    })
             }
         });
     };

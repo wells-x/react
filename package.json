@@ -8,6 +8,7 @@
     "antd": "^3.8.0",
     "axios": "^0.16.2",
     "flex.css": "^1.1.7",
+    "md5": "^2.2.1",
     "promise": "7.1.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -125,12 +126,28 @@
         "/api": ""
       },
       "router": {
-        "//my.12301.local" : "http://localhost:3001"
+        "//my.12301.local": "http://localhost:3001"
       },
       "headers": {
         "Referer": "http://my.12301.local/dlogin_n.html",
         "Origin": "http://my.12301.local",
         "host": "http://my.12301.local"
+      }
+    },
+    "/test": {
+      "target": "http://127.0.0.1:7001",
+      "changeOrigin": true,
+      "cookieDomainRewrite": "localhost:3001",
+      "pathRewrite": {
+        "/test": ""
+      },
+      "router": {
+        "http://127.0.0.1:7001": "http://localhost:3001"
+      },
+      "headers": {
+        "Referer": "http://127.0.0.1:7001/dlogin_n.html",
+        "Origin": "http://127.0.0.1:7001",
+        "host": "http://127.0.0.1:7001"
       }
     }
   }
