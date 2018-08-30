@@ -4,6 +4,7 @@ const path = require('path'),
     config = require('../config'),
     vueLoaderConfig = require('./vue-loader.conf');
 
+const eslintFormatter = require('react-dev-utils/eslintFormatter');
 function resolve (dir) {
     return path.join(__dirname, '..', dir)
 }
@@ -18,7 +19,7 @@ module.exports = {
     mode,
     context: path.resolve(__dirname, '../'),
     entry: {
-        app: './src/main.js'
+        app: './src/index.js'
     },
     output: {
         path: config.build.assetsRoot,
@@ -63,9 +64,11 @@ module.exports = {
         },
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        // extensions: ['.js', '.json'],
+        extensions: ['.web.js', '.vue', '.js', '.json', '.web.jsx', '.jsx'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
+            'react-native': 'react-native-web',
             '@': resolve('src'),
         }
     },
@@ -77,9 +80,24 @@ module.exports = {
                 options: vueLoaderConfig
             },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
+                test: /\.(js|jsx)$/,
+                enforce: 'pre',
+                loader: 'eslint-loader',
                 include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+            },
+            {
+                test: /\.(js|jsx)$/,
+                loader: require.resolve('babel-loader'),
+                options: {
+                    plugins: [
+                        ['import', {"libraryName": "antd", "libraryDirectory": "es", "style": "css"}],  // import less
+                        'react-hot-loader/babel'
+                    ],
+                    // This is a feature of `babel-loader` for webpack (not Babel itself).
+                    // It enables caching results in ./node_modules/.cache/babel-loader/
+                    // directory for faster rebuilds.
+                    cacheDirectory: true,
+                },
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
