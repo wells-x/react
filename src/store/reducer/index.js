@@ -31,12 +31,12 @@ const navStatus = (state = {}, action) => {
     switch (action.type) {
         case type.CHANGE_COLLAPSE:
             // console.log(state);
-            return {...state};
+            return state;
         case '':
             break;
         default:
             // console.log(state);
-            return {...state, isCollapsed: false}
+            return Object.assign({},state)
     }
 };
 export default combineReducers({

@@ -14,9 +14,8 @@ const HOST = process.env.HOST,
     PORT = process.env.PORT && Number(process.env.PORT);
 
 const devWebpackConfig = merge(baseWebpackConfig, {
-    mode: 'development',
     module: {
-        rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: true})
+        rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: false})
     },
     // cheap-module-eval-source-map is faster for development
     devtool: config.dev.devtool,
@@ -55,7 +54,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'index.html',
+            template: './public/index.html',
             inject: true
         }),
         // copy custom static assets
@@ -68,7 +67,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         ])
     ]
 });
-
+/*// console.log(devWebpackConfig);
+devWebpackConfig.module.rules.forEach(rule => {
+    console.log(rule.test);
+    Array.isArray(rule.use) && rule.use.forEach(item => {
+        // console.log(item);
+    })
+})*/
 module.exports = new Promise((resolve, reject) => {
     portfinder.basePort = process.env.PORT || config.dev.port;
     portfinder.getPort((err, port) => {

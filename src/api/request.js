@@ -1,18 +1,16 @@
 import axios from 'axios';
-import qs from 'qs';
 
 const request = axios.create({
-    baseURL: '/api/'
+    baseURL:'/api/'
 });
 
 request.interceptors.request.use((config) => {
-    config.data = qs.stringify(config.data);
-    // console.log(config);
+    console.log(config);
     return config
 });
 
 request.interceptors.response.use((res) => {
-    // console.log(res);
+    console.log(res);
     return res
 });
 

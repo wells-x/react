@@ -1,5 +1,5 @@
 import React from 'react';
-import img from '../assets/imgs/404.png';
+// import img from '../assets/imgs/404.png';
 import './notFound.scss'
 import 'animate.css'
 class NotFound extends React.Component {
@@ -14,7 +14,7 @@ class NotFound extends React.Component {
         const {animated} = this.state;
         return (
             <div className="center not-found">
-                <img src={img} alt="404" className={`animated swing ${animated}`} onMouseEnter={this.enter} />
+                <img src="../assets/imgs/404.png" alt="404" className={`animated swing ${animated}`} onMouseEnter={this.enter} />
             </div>
         )
     }

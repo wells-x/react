@@ -8,6 +8,7 @@ const path = require('path'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    // MiniCssExtractPlugin = require("mini-css-extract-plugin"),
     OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
     UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
 
@@ -23,7 +24,9 @@ const webpackConfig = merge(baseWebpackConfig, {
             sourceMap: config.build.productionSourceMap,
             extract: true,
             usePostCSS: true
-        })
+        }),
+
+        // rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: false})
     },
     devtool: config.build.productionSourceMap ? config.build.devtool : false,
     output: {
@@ -56,6 +59,10 @@ const webpackConfig = merge(baseWebpackConfig, {
             allChunks: true,
         }),
 
+        // new MiniCssExtractPlugin({
+        //     filename: utils.assetsPath('css/[name].[md5:contenthash:20].css'),
+        //     chunkFilename: "[id].css"
+        // }),
         // Compress extracted CSS. We are using this plugin so that possible
         // duplicated CSS from different components can be deduped.
         new OptimizeCSSPlugin({
@@ -70,14 +77,19 @@ const webpackConfig = merge(baseWebpackConfig, {
             filename: process.env.NODE_ENV === 'testing'
                 ? 'index.html'
                 : config.build.index,
-            template: 'index.html',
+            template: './public/index.html',
             inject: true,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
-                removeAttributeQuotes: true
-                // more options:
-                // https://github.com/kangax/html-minifier#options-quick-reference
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
             },
             // necessary to consistently work with multiple chunks via CommonsChunkPlugin
             chunksSortMode: 'dependency'

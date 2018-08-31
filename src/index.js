@@ -1,11 +1,10 @@
-/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {Provider} from 'react-redux';
 import store from './store'
 import 'flex.css'
-import './index.css'
+import './assets/css/index.css'
 import 'antd/dist/antd.css';
 import registerServiceWorker from './registerServiceWorker';
 import Page from './Page';
@@ -15,6 +14,7 @@ import Page from './Page';
 
 const render = Component => {   // 增加react-hot-loader保持状态刷新操作，如果不需要可去掉并把下面注释的打开
     ReactDOM.render(
+
         <AppContainer>
             <Provider store={store}>
                 <Component store={store} />
