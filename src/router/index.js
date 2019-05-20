@@ -1,20 +1,18 @@
-import React, {Component} from 'react'
-import {Route, BrowserRouter as Router, Redirect, Switch} from 'react-router-dom'
-import Home from '../page/Home'
-import About from '../page/About'
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import Login from '../view/login/Login'
+import NotUse from '../view/not-use/NotUse'
+import App from '../view/App'
 
-class Routes extends Component {
-    render() {
-        return (
-            <Router>
-                <Switch>
-                    <Route path='/home' component={Home}/>
-                    <Route path='/about' component={About}/>
-                    <Route path='/' exact render={() => <Redirect to="/home"/>}/>
-                </Switch>
-            </Router>
-        )
-    }
-}
-
-export default Routes
+export default () => (
+    <Router>
+        <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/404" component={NotUse} />
+            <Route path="/app" component={App} />
+            {/*<Route path="/" exact render={() => <Redirect to="/app" push />} />*/}
+            <Route path="/" exact component={App} />
+            <Route path="*" render={() => <Redirect to="/404" push />} />
+        </Switch>
+    </Router>
+)

@@ -1,8 +1,12 @@
 /**
- * Created by hao.cheng on 2017/4/16.
+ * Create by wells
+ * @date
  */
 import React, {Component} from 'react';
 import './login.scss';
+import style from './login.module.css'
+
+console.log(style.positionFixed);
 
 class Login extends Component {
     /*componentWillMount () {
@@ -44,7 +48,7 @@ class Login extends Component {
     render() {
         // const { getFieldDecorator } = this.props.form;
         return (
-            <div className="login">
+            <div className={['login', style.positionFixed].join(' ')}>
                 <div className="login-form">
                     <div className="login-logo">
                         <span>React Admin</span>
