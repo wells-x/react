@@ -128,6 +128,16 @@
       "jest-watch-typeahead/testname"
     ]
   },
+  "proxy": {
+    "/r": {
+      "target": "http://localhost:8088",
+      "changeOrigin": true,
+      "secure": false,
+      "pathRewrite": {
+        "^/r": "/"
+      }
+    }
+  },
   "babel": {
     "presets": [
       "react-app"
