@@ -25,7 +25,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const postcssNormalize = require('postcss-normalize');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -502,6 +502,14 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+      isEnvProduction &&
+      new CompressionWebpackPlugin({
+        filename: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.(js|css)(\?.*)?$/i,
+        threshold: 2048,
+        minRatio: 0.8
+      }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
