@@ -9,6 +9,11 @@ import style from './login.module.css'
 import {login} from "../../api/account";
 
 class NormalLoginForm extends Component {
+  constructor(props){
+    super();
+    console.log(props);
+    console.log(this.context);
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -17,6 +22,7 @@ class NormalLoginForm extends Component {
         login({account: values.username, password: values.password})
           .then(res => {
             console.log(res);
+            console.log(res.data.token);
           })
           .catch(e => {
             console.log(JSON.stringify(e));

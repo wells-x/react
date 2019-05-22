@@ -1,3 +1,18 @@
+import {createStore} from 'redux'
+import reducer from './reducer'
+
+const initValue = {
+  'First': 0,
+  'Second': 10,
+  'Third': 20
+};
+const store = createStore(reducer, initValue);
+export default store
+export {
+  store
+}
+
+/*
 import { createStore } from 'redux'
 // import { Provider, connect } from 'react-redux'
 
@@ -18,7 +33,9 @@ function counter(state = { count: 0 }, action) {
 // Store
 const store = createStore(counter);
 
+store.dispatch(increaseAction);
 export default store;
 export {
   store
 }
+*/

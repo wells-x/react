@@ -100,11 +100,12 @@ checkBrowsers(paths.appPath, isInteractive)
     // const proxySetting = require(paths.appPackageJson).proxy;
     const proxyConfig = {
       "/r/": {
-        "target": "http://localhost:8088",
+        // "target": "http://localhost:8088",
+        "target": "http://localhost:8888",
         "changeOrigin": true,
         "secure": false,
         "pathRewrite": {
-          "^/r/api": "/"
+          "^/r/": "/"
         }
       }
     };
