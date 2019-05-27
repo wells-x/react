@@ -1,5 +1,5 @@
 import React from 'react'
-import {increment, decrement} from '../../store/action'
+import {increment, decrement} from '../../store/counter/action'
 import {connect} from 'react-redux';
 
 const buttonStyle = {

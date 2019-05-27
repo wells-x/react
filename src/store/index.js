@@ -1,12 +1,7 @@
 import {createStore} from 'redux'
-import reducer from './reducer'
+import counter from './counter/reducer'
 
-const initValue = {
-  'First': 0,
-  'Second': 10,
-  'Third': 20
-};
-const store = createStore(reducer, initValue);
+const store = createStore(counter);
 export default store
 export {
   store
