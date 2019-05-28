@@ -8,7 +8,6 @@ import {Form, Icon, Input, Button, Checkbox} from 'antd';
 import style from './login.module.css';
 import {login} from "../../api/account";
 import {connect} from 'react-redux';
-import {decrement, increment} from "../../store/counter/action";
 import {saveToken} from "../../store/account/action";
 
 class NormalLoginForm extends Component {
@@ -101,7 +100,7 @@ function mapDispatch(dispatch, ownProps) {
 
     },
     Decrement: () => {
-      dispatch(decrement(ownProps.token))
+      // dispatch(decrement(ownProps.token))
     }
 
   }
