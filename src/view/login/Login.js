@@ -5,16 +5,19 @@
 import React, {Component} from 'react';
 import './login.scss';
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
-import style from './login.module.css'
+import style from './login.module.css';
 import {login} from "../../api/account";
+import {connect} from 'react-redux';
+import {decrement, increment} from "../../store/counter/action";
+import {saveToken} from "../../store/account/action";
 
 class NormalLoginForm extends Component {
-  constructor(props){
+  constructor(props,){
     super();
     console.log(props);
-    console.log(this.context);
   }
   handleSubmit = e => {
+    console.log(this.props);
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -22,7 +25,9 @@ class NormalLoginForm extends Component {
         login({account: values.username, password: values.password})
           .then(res => {
             console.log(res);
-            console.log(res.data.token);
+            this.props.SaveToken(res.data.token);
+
+            console.log(this.props);
           })
           .catch(e => {
             console.log(JSON.stringify(e));
@@ -81,7 +86,29 @@ class NormalLoginForm extends Component {
   }
 }
 
+function mapState(state, ownProps) {
+  console.log(state.account);
+  return {
+    account: state.account
+  }
+}
+
+function mapDispatch(dispatch, ownProps) {
+  return {
+    SaveToken: (s) => {
+      console.log(s);
+      dispatch(saveToken(s));
+
+    },
+    Decrement: () => {
+      dispatch(decrement(ownProps.token))
+    }
+
+  }
+}
+
 const WrappedNormalLoginForm = Form.create({name: 'normal_login'})(NormalLoginForm);
 
-export default WrappedNormalLoginForm
+export default connect(mapState, mapDispatch)(WrappedNormalLoginForm)
+// WrappedNormalLoginForm
 // ReactDOM.render(<WrappedNormalLoginForm />, mountNode);

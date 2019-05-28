@@ -1,7 +1,8 @@
-import {createStore} from 'redux'
-import counter from './counter/reducer'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import * as counter from './counter/reducer'
+import * as account from './account/reducer'
 
-const store = createStore(counter);
+const store = createStore(combineReducers({...counter, ...account}, applyMiddleware()));
 export default store
 export {
   store

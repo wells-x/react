@@ -5,7 +5,8 @@ const initValue = {
   'Second': 10,
   'Third': 20
 };
-export default (state = initValue, action) => {
+
+export const counter = (state = initValue, action) => {
   const {counterCaption} = action;
   switch (action.type) {
     case Increment:
@@ -15,4 +16,4 @@ export default (state = initValue, action) => {
     default:
       return state
   }
-}
+};

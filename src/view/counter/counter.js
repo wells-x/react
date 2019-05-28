@@ -7,6 +7,7 @@ const buttonStyle = {
 };
 
 function Counter({caption, Increment, Decrement, value}) {
+  console.log(value);
   return (
     <div>
       <button style={buttonStyle} onClick={Increment}>+</button>
@@ -17,9 +18,9 @@ function Counter({caption, Increment, Decrement, value}) {
 }
 
 function mapState(state, ownProps) {
-  console.log(state);
+  console.log(state.counter[ownProps.caption]);
   return {
-    value: state[ownProps.caption]
+    value: state.counter[ownProps.caption]
   }
 }
 
