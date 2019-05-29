@@ -9,12 +9,15 @@ import style from './login.module.css';
 import {login} from "../../api/account";
 import {connect} from 'react-redux';
 import {saveToken} from "../../store/account/action";
+import {store} from "../../store";
 
 class NormalLoginForm extends Component {
-  constructor(props,){
-    super();
-    console.log(props);
+  constructor(props,) {
+    super(props);
+    console.log(this);
+    this.state = {username: 'wells', password: '123456'}
   }
+
   handleSubmit = e => {
     console.log(this.props);
     e.preventDefault();
@@ -25,8 +28,8 @@ class NormalLoginForm extends Component {
           .then(res => {
             console.log(res);
             this.props.SaveToken(res.data.token);
-
-            console.log(this.props);
+            this.props.history.push('/');
+            console.log(store.getState());
           })
           .catch(e => {
             console.log(JSON.stringify(e));
@@ -41,18 +44,21 @@ class NormalLoginForm extends Component {
       <div className={['login', style.positionFixed].join(' ')}>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator('username', {
-              rules: [{required: true, message: 'Please input your username!'}],
-            })(
-              <Input
-                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                placeholder="Username"
-              />,
-            )}
+            {
+              getFieldDecorator('username', {
+                rules: [{required: true, message: 'Please input your username!'}],
+                initialValue: this.state.username
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                  placeholder="Username"
+                />,
+              )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [{required: true, message: 'Please input your Password!'}],
+              initialValue: this.state.password
             })(
               <Input
                 prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
@@ -79,23 +85,24 @@ class NormalLoginForm extends Component {
             <a href="">register now!</a>
           </Form.Item>
         </Form>
+
       </div>
+
 
     );
   }
 }
 
-function mapState(state, ownProps) {
-  console.log(state.account);
+function mapState(state,) {
   return {
-    account: state.account
+    app: state.app
   }
 }
 
 function mapDispatch(dispatch, ownProps) {
   return {
     SaveToken: (s) => {
-      console.log(s);
+      console.log(s, ownProps);
       dispatch(saveToken(s));
 
     },

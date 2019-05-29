@@ -6,3 +6,5 @@ export const SAVEIMG = 'SAVEIMG';
 export const CLEARDATA = 'CLEARDATA';
 
 export const SAVE_TOKEN = 'save_token';
+
+export const CLEAR_TOKEN = 'clear_token';

@@ -5,11 +5,20 @@
 import React, {Component} from 'react';
 import './login.scss';
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
-import style from './login.module.css'
+import style from './login.module.css';
 import {login} from "../../api/account";
+import {connect} from 'react-redux';
+import {saveToken} from "../../store/account/action";
 
 class NormalLoginForm extends Component {
+  constructor(props,) {
+    super(props);
+    console.log(this);
+    this.state = {username: 'wells', password: '123456'}
+  }
+
   handleSubmit = e => {
+    console.log(this.props);
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -17,6 +26,9 @@ class NormalLoginForm extends Component {
         login({account: values.username, password: values.password})
           .then(res => {
             console.log(res);
+            this.props.SaveToken(res.data.token);
+
+            console.log(this);
           })
           .catch(e => {
             console.log(JSON.stringify(e));
@@ -31,18 +43,21 @@ class NormalLoginForm extends Component {
       <div className={['login', style.positionFixed].join(' ')}>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator('username', {
-              rules: [{required: true, message: 'Please input your username!'}],
-            })(
-              <Input
-                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                placeholder="Username"
-              />,
-            )}
+            {
+              getFieldDecorator('username', {
+                rules: [{required: true, message: 'Please input your username!'}],
+                initialValue: this.state.username
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                  placeholder="Username"
+                />,
+              )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [{required: true, message: 'Please input your Password!'}],
+              initialValue: this.state.password
             })(
               <Input
                 prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
@@ -69,13 +84,36 @@ class NormalLoginForm extends Component {
             <a href="">register now!</a>
           </Form.Item>
         </Form>
+
       </div>
+
 
     );
   }
 }
 
+function mapState(state, ) {
+  return {
+    account: state.app
+  }
+}
+
+function mapDispatch(dispatch, ownProps) {
+  return {
+    SaveToken: (s) => {
+      console.log(s, ownProps);
+      dispatch(saveToken(s));
+
+    },
+    Decrement: () => {
+      // dispatch(decrement(ownProps.token))
+    }
+
+  }
+}
+
 const WrappedNormalLoginForm = Form.create({name: 'normal_login'})(NormalLoginForm);
 
-export default WrappedNormalLoginForm
+export default connect(mapState, mapDispatch)(WrappedNormalLoginForm)
+// WrappedNormalLoginForm
 // ReactDOM.render(<WrappedNormalLoginForm />, mountNode);
