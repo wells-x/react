@@ -12,7 +12,6 @@ function getOldStore() {
   setTimeout(() => {
     sessionStorage.removeItem(UNLOAD_KEY);
   }, 10000);
-  console.log(sessionStorage.getItem(UNLOAD_KEY));
   return JSON.parse(sessionStorage.getItem(UNLOAD_KEY));
 }
 

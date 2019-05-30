@@ -8,7 +8,6 @@ try {
 } catch (e) {
   console.log(e);
 }
-console.log(token);
 let defaultState = {
   token: token || '',
 };

@@ -7,11 +7,11 @@ function Summary({value}) {
   );
 }
 
-function mapState(state) {
+function mapState({counter}) {
   let sum = 0;
-  for (const key in state) {
-    if (state.hasOwnProperty(key)) {
-      sum += state[key];
+  for (const key in counter) {
+    if (counter.hasOwnProperty(key)) {
+      sum += counter[key];
     }
   }
   return {value: sum};

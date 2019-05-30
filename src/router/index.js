@@ -17,7 +17,7 @@ export default () => (
         <Route path="/404" component={NotUse}/>
         <Route path="/test" component={Counter}/>
         <Route path="/" exact component={Home}/>
-        <Route path="*" render={() => <Redirect to="/404" push/>}/>
+        <Route path="*" render={() => <Redirect to="/404" replace/>}/>
       </Switch>
     </Router>
   </Provider>

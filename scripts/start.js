@@ -101,7 +101,8 @@ checkBrowsers(paths.appPath, isInteractive)
     const proxyConfig = {
       "/r/": {
         // "target": "http://localhost:8088",
-        "target": "http://localhost:8888",
+        // "target": "http://localhost:8888",
+        "target": "http://47.106.10.199",
         "changeOrigin": true,
         "secure": false,
         "pathRewrite": {

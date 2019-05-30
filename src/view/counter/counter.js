@@ -18,7 +18,7 @@ function Counter({caption, Increment, Decrement, value}) {
 }
 
 function mapState(state, ownProps) {
-  console.log(state.counter[ownProps.caption]);
+  // console.log(state.counter[ownProps.caption]);
   return {
     value: state.counter[ownProps.caption]
   }
