@@ -19,10 +19,6 @@ export const app = (state = defaultState, action = {}) => {
       return {...state, ...{token: action.value}};
     case home.CLEAR_TOKEN:
       return {...state, ...{token: ''}};
-    // case home.SAVEIMG:
-    //   return {...state, ...{imgpath: action.path}};
-    // case home.CLEARDATA:
-    //   return {...state, ...defaultState};
     default:
       return state;
   }

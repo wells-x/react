@@ -4,95 +4,273 @@
  */
 import React, {Component} from 'react';
 import './login.scss';
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
-import style from './login.module.css';
-import {login} from "../../api/account";
 import {connect} from 'react-redux';
 import {saveToken} from "../../store/account/action";
 
-class NormalLoginForm extends Component {
-  constructor(props,) {
-    super(props);
-    console.log(this);
-    this.state = {username: 'wells', password: '123456'}
-  }
+
+import {
+  Form,
+  Input,
+  Tooltip,
+  Icon,
+  Cascader,
+  Select,
+  Row,
+  Col,
+  Checkbox,
+  Button,
+  AutoComplete,
+} from 'antd';
+
+const {Option} = Select;
+const AutoCompleteOption = AutoComplete.Option;
+
+const residences = [
+  {
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [
+      {
+        value: 'hangzhou',
+        label: 'Hangzhou',
+        children: [
+          {
+            value: 'xihu',
+            label: 'West Lake',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [
+      {
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          },
+        ],
+      },
+    ],
+  },
+];
+
+class RegistrationForm extends Component {
+  state = {
+    confirmDirty: false,
+    autoCompleteResult: [],
+  };
 
   handleSubmit = e => {
-    console.log(this.props);
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        login({account: values.username, password: values.password})
-          .then(res => {
-            console.log(res);
-            this.props.SaveToken(res.data.token);
-
-            console.log(this);
-          })
-          .catch(e => {
-            console.log(JSON.stringify(e));
-          })
       }
     });
   };
 
+  handleConfirmBlur = e => {
+    const value = e.target.value;
+    this.setState({confirmDirty: this.state.confirmDirty || !!value});
+  };
+
+  compareToFirstPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  };
+
+  validateToNextPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], {force: true});
+    }
+    callback();
+  };
+
+  handleWebsiteChange = value => {
+    let autoCompleteResult;
+    if (!value) {
+      autoCompleteResult = [];
+    } else {
+      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+    }
+    this.setState({autoCompleteResult});
+  };
+
   render() {
     const {getFieldDecorator} = this.props.form;
+    const {autoCompleteResult} = this.state;
+
+    const formItemLayout = {
+      labelCol: {
+        xs: {span: 24},
+        sm: {span: 8},
+      },
+      wrapperCol: {
+        xs: {span: 24},
+        sm: {span: 16},
+      },
+      style: {
+        width: '80%',
+        margin: '0 auto'
+      }
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
+    const prefixSelector = getFieldDecorator('prefix', {
+      initialValue: '86',
+    })(
+      <Select style={{width: 70}}>
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>,
+    );
+
+    const websiteOptions = autoCompleteResult.map(website => (
+      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+    ));
+
     return (
-      <div className={['login', style.positionFixed].join(' ')}>
-        <Form onSubmit={this.handleSubmit} className="login-form">
-          <Form.Item>
-            {
-              getFieldDecorator('username', {
-                rules: [{required: true, message: 'Please input your username!'}],
-                initialValue: this.state.username
-              })(
-                <Input
-                  prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                  placeholder="Username"
-                />,
-              )}
+      <section>
+        <h2>注册用户</h2>
+        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+          <Form.Item label="E-mail">
+            {getFieldDecorator('email', {
+              rules: [
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
+                },
+                {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ],
+            })(<Input/>)}
           </Form.Item>
-          <Form.Item>
+          <Form.Item label="Password" hasFeedback>
             {getFieldDecorator('password', {
-              rules: [{required: true, message: 'Please input your Password!'}],
-              initialValue: this.state.password
+              rules: [
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+                {
+                  validator: this.validateToNextPassword,
+                },
+              ],
+            })(<Input.Password/>)}
+          </Form.Item>
+          <Form.Item label="Confirm Password" hasFeedback>
+            {getFieldDecorator('confirm', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
+                },
+                {
+                  validator: this.compareToFirstPassword,
+                },
+              ],
+            })(<Input.Password onBlur={this.handleConfirmBlur}/>)}
+          </Form.Item>
+          <Form.Item
+            label={
+              <span>
+              Nickname&nbsp;
+                <Tooltip title="What do you want others to call you?">
+                <Icon type="question-circle-o"/>
+              </Tooltip>
+            </span>
+            }
+          >
+            {getFieldDecorator('nickname', {
+              rules: [{required: true, message: 'Please input your nickname!', whitespace: true}],
+            })(<Input/>)}
+          </Form.Item>
+          <Form.Item label="Habitual Residence">
+            {getFieldDecorator('residence', {
+              initialValue: ['zhejiang', 'hangzhou', 'xihu'],
+              rules: [
+                {type: 'array', required: true, message: 'Please select your habitual residence!'},
+              ],
+            })(<Cascader options={residences}/>)}
+          </Form.Item>
+          <Form.Item label="Phone Number">
+            {getFieldDecorator('phone', {
+              rules: [{required: true, message: 'Please input your phone number!'}],
+            })(<Input addonBefore={prefixSelector} style={{width: '100%'}}/>)}
+          </Form.Item>
+          <Form.Item label="Website">
+            {getFieldDecorator('website', {
+              rules: [{required: true, message: 'Please input website!'}],
             })(
-              <Input
-                prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                type="password"
-                placeholder="Password"
-              />,
+              <AutoComplete
+                dataSource={websiteOptions}
+                onChange={this.handleWebsiteChange}
+                placeholder="website"
+              >
+                <Input/>
+              </AutoComplete>,
             )}
           </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('remember', {
+          <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+            <Row gutter={8}>
+              <Col span={12}>
+                {getFieldDecorator('captcha', {
+                  rules: [{required: true, message: 'Please input the captcha you got!'}],
+                })(<Input/>)}
+              </Col>
+              <Col span={12}>
+                <Button>Get captcha</Button>
+              </Col>
+            </Row>
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            {getFieldDecorator('agreement', {
               valuePropName: 'checked',
-              initialValue: true,
-            })(<Checkbox>Remember me</Checkbox>)}
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-            <br/>
-            <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
-            </Button> Or
-            &nbsp;
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="">register now!</a>
+            })(
+              <Checkbox>
+                I have read the <a href="/">agreement</a>
+              </Checkbox>,
+            )}
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              Register
+            </Button>
           </Form.Item>
         </Form>
-
-      </div>
-
-
+      </section>
     );
   }
 }
 
-function mapState(state, ) {
+const WrappedRegistrationForm = Form.create({name: 'register'})(RegistrationForm);
+
+// ReactDOM.render(<WrappedRegistrationForm />, mountNode);
+
+function mapState(state,) {
   return {
     account: state.app
   }
@@ -112,8 +290,8 @@ function mapDispatch(dispatch, ownProps) {
   }
 }
 
-const WrappedNormalLoginForm = Form.create({name: 'normal_login'})(NormalLoginForm);
+// const WrappedNormalLoginForm = Form.create({name: 'normal_login'})(NormalLoginForm);
 
-export default connect(mapState, mapDispatch)(WrappedNormalLoginForm)
+export default connect(mapState, mapDispatch)(WrappedRegistrationForm)
 // WrappedNormalLoginForm
 // ReactDOM.render(<WrappedNormalLoginForm />, mountNode);

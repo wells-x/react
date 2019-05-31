@@ -10,6 +10,7 @@ import {login} from "../../api/account";
 import {connect} from 'react-redux';
 import {saveToken} from "../../store/account/action";
 import {store} from "../../store";
+import {Link} from 'react-router-dom'
 
 class NormalLoginForm extends Component {
   constructor(props,) {
@@ -82,7 +83,7 @@ class NormalLoginForm extends Component {
             </Button> Or
             &nbsp;
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="">register now!</a>
+            <Link to="/register">register now!</Link>
           </Form.Item>
         </Form>
 
