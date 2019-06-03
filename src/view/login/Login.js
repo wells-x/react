@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import './login.scss';
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
-import style from './login.module.css';
+import style from './index.module.css';
 import {login} from "../../api/account";
 import {connect} from 'react-redux';
 import {saveToken} from "../../store/account/action";
