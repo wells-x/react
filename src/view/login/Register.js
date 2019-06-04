@@ -19,6 +19,7 @@ import {
   AutoComplete,
 } from 'antd';
 import style from './index.module.css'
+import {register} from "../../api/account";
 
 class RegistrationForm extends Component {
   state = {
@@ -29,9 +30,13 @@ class RegistrationForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
+      if (err) {
+        return;
       }
+      console.log('Received values of form: ', values);
+      register(values).then(res => {
+        console.log(res);
+      })
     });
   };
 
@@ -94,6 +99,7 @@ class RegistrationForm extends Component {
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
           <Form.Item label="账号">
             {getFieldDecorator('account', {
+              initialValue: 'wells',
               rules: [{required: true, message: 'Please input website!'}],
             })(
               <AutoComplete
@@ -105,6 +111,7 @@ class RegistrationForm extends Component {
           </Form.Item>
           <Form.Item label="密码" hasFeedback>
             {getFieldDecorator('password', {
+              initialValue: '123456',
               rules: [
                 {
                   required: true,
@@ -118,6 +125,7 @@ class RegistrationForm extends Component {
           </Form.Item>
           <Form.Item label="确认密码" hasFeedback>
             {getFieldDecorator('confirm', {
+              initialValue: '123456',
               rules: [
                 {
                   required: true,
@@ -131,6 +139,7 @@ class RegistrationForm extends Component {
           </Form.Item>
           <Form.Item label="E-mail">
             {getFieldDecorator('email', {
+              initialValue: 'kang991005214@163.com',
               rules: [
                 {
                   type: 'email',
@@ -154,12 +163,14 @@ class RegistrationForm extends Component {
             }
           >
             {getFieldDecorator('nickname', {
+              initialValue: 'xiaoqiang',
               rules: [{required: true, message: 'Please input your nickname!', whitespace: true}],
             })(<Input/>)}
           </Form.Item>
 
           <Form.Item label="年龄">
             {getFieldDecorator('age', {
+              initialValue: '10',
               rules: [{required: true, message: 'Please input your age!'}],
             })(<Input style={{width: '120px'}}/>)}
           </Form.Item>

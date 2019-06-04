@@ -102,6 +102,7 @@ checkBrowsers(paths.appPath, isInteractive)
       "/r/": {
         // "target": "http://localhost:8088",
         // "target": "http://localhost:8888",
+        // "target": "http://localhost:8080",
         "target": "http://47.106.10.199",
         "changeOrigin": true,
         "secure": false,
