@@ -7,12 +7,14 @@ import Counter from '../view/counter'
 import {store} from "../store";
 import {Provider} from 'react-redux'
 import Home from '../view/home/Home'
+import User from '../view/user/UserList'
 
 export default () => (
   <Provider store={store}>
     <Router>
       <Switch>
         <Route path="/login" component={Login}/>
+        <Route path="/user" component={User}/>
         <Route path="/register" component={Register}/>
         <Route path="/404" component={NotUse}/>
         <Route path="/test" component={Counter}/>
