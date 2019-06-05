@@ -13,14 +13,36 @@ class UserList extends Component {
   initList = () => {
     getUserList().then(res => {
       console.log(res);
+      this.setState({userList: res.data})
     })
   };
 
   render() {
-    console.log(this.state);
+
+    let {userList} = this.state;
+
+    const columns = [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+      },
+      {
+        title: 'Account',
+        dataIndex: 'account',
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email'
+      },
+      {
+        title: 'Age',
+        dataIndex: 'age'
+      },
+    ];
+
     return (
       <div>
-        <Table data={this.state.userList}/>
+        <Table rowKey="id" dataSource={userList} columns={columns}/>
       </div>
     )
   }
