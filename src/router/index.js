@@ -8,6 +8,7 @@ import {store} from "../store";
 import {Provider} from 'react-redux'
 import Home from '../view/home/Home'
 import User from '../view/user/UserList'
+import Square from '../view/square'
 
 export default () => (
   <Provider store={store}>
@@ -15,6 +16,7 @@ export default () => (
       <Switch>
         <Route path="/login" component={Login}/>
         <Route path="/user" component={User}/>
+        <Route path="/square" component={Square}/>
         <Route path="/register" component={Register}/>
         <Route path="/404" component={NotUse}/>
         <Route path="/test" component={Counter}/>
