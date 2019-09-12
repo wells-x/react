@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 const request = axios.create({
   // baseURL,
   baseURL: '/r',
-  timeout: 4000 // 请求超时时间
+  timeout: 400000 // 请求超时时间
 });
 
 // request拦截器

@@ -4,7 +4,7 @@
  */
 import React, {Component} from 'react';
 import './login.scss';
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
 import style from './index.module.css';
 import {login} from "../../api/account";
 import {connect} from 'react-redux';
@@ -33,7 +33,7 @@ class NormalLoginForm extends Component {
             console.log(store.getState());
           })
           .catch(e => {
-            console.log(JSON.stringify(e));
+            message.error(e.msg);
           })
       }
     });

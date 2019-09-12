@@ -63,7 +63,7 @@ if (process.env.HOST) {
 
 // We require that you explicitly set browsers and do not fall back to
 // browserslist defaults.
-const {checkBrowsers} = require('react-dev-utils/browsersHelper');
+const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // We attempt to use the default port but if it is busy, we offer the user to
@@ -101,9 +101,9 @@ checkBrowsers(paths.appPath, isInteractive)
     const proxyConfig = {
       "/r/": {
         // "target": "http://localhost:8088",
-        // "target": "http://localhost:8888",
+        "target": "http://localhost:8088/",
         // "target": "http://localhost:8080",
-        "target": "http://47.106.10.199",
+        // "target": "http://47.106.10.199",
         "changeOrigin": true,
         "secure": false,
         "pathRewrite": {
