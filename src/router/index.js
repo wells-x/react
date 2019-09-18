@@ -7,26 +7,28 @@ import Counter from '../view/counter'
 import { store } from "../store";
 import { Provider } from 'react-redux'
 import Home from '../view/home/Home'
-import User from '../view/user/UserList'
+import UserList from '../view/user/User.List'
+import UserDetails from '../view/user/User.Details'
 import Square from '../view/square'
 import Layouts from '../view/Layouts';
-
+import UnLogin from "../view/not-use/UnLogin";
 export default () => (
   <Provider store={store}>
     <Router>
       <Switch>
         <Route path="/login" component={Login} />
-        
+        <Route path="/test" component={Counter} />
         <Layouts>
           <Route path="/" exact component={Home} />
-          <Route path="/user" component={User} />
+          <Route path="/user/:id" exact component={UserDetails} />
+          <Route path="/users" exact component={UserList} />
           <Route path="/square" component={Square} />
           <Route path="/register" component={Register} />
+          <Route path="/404" component={NotUse} />
+          <Route path="/toLogin" component={UnLogin} />
         </Layouts>
 
-        <Route path="/404" component={NotUse} />
-        <Route path="/test" component={Counter} />
-        <Route path="*" render={() => <Redirect to="/404" replace />} />
+        <Route component={NotUse} />
       </Switch>
     </Router>
   </Provider>

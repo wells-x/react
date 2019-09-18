@@ -7,3 +7,11 @@ export function getUserList(data) {
     data,
   })
 }
+
+export function getUserById(data) {
+  return request({
+    method: 'post',
+    url: '/api/user/id/' + data.id,
+    data,
+  })
+}

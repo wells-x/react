@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {getUserList} from "../../api/user";
 import {Table} from "antd";
+import {Link} from "react-router-dom";
 
 class UserList extends Component {
   constructor(props) {
@@ -38,6 +39,10 @@ class UserList extends Component {
         title: 'Age',
         dataIndex: 'age'
       },
+      {
+        title: '详情',
+        render: row => <Link to={'/user/' + row.id}>详情</Link>
+      }
     ];
 
     return (
