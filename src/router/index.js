@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
 import Login from '../view/login/Login'
 import Register from '../view/login/Register'
 import NotUse from '../view/not-use/NotUse'
@@ -16,6 +16,7 @@ export default () => (
   <Provider store={store}>
     <Router>
       <Switch>
+        <Route path="/login/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/test" component={Counter} />
         <Layouts>
@@ -23,7 +24,6 @@ export default () => (
           <Route path="/user/:id" exact component={UserDetails} />
           <Route path="/users" exact component={UserList} />
           <Route path="/square" component={Square} />
-          <Route path="/register" component={Register} />
           <Route path="/404" component={NotUse} />
           <Route path="/toLogin" component={UnLogin} />
         </Layouts>

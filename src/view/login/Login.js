@@ -83,7 +83,7 @@ class NormalLoginForm extends Component {
             </Button> Or
             &nbsp;
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link to="/register">register now!</Link>
+            <Link to="/login/register">register now!</Link>
           </Form.Item>
         </Form>
 
@@ -105,7 +105,6 @@ function mapDispatch(dispatch, ownProps) {
     SaveToken: (s) => {
       console.log(s, ownProps);
       dispatch(saveToken(s));
-
     },
     Decrement: () => {
       // dispatch(decrement(ownProps.token))

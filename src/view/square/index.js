@@ -23,7 +23,7 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null),
+      squares: Array(9).fill(""),
       xIsNext: true,
     }
   }
@@ -31,7 +31,6 @@ class Board extends Component {
   handleClick(i) {
     const squares = this.state.squares.slice();
     squares[i] = this.state.xIsNext ? "X" : "O";
-    console.log(squares[i]);
     this.setState({
       squares,
       xIsNext: !this.state.xIsNext

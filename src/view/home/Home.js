@@ -5,8 +5,6 @@ import {store} from "../../store";
 class Home extends Component {
   constructor(props) {
     super(props);
-    console.log(props, store);
-    // this.state = {isLogin: false};
     store.subscribe(() => {
       const {token} = store.getState().app;
       this.state.isLogin = !!token;

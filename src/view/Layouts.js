@@ -2,13 +2,23 @@ import React, {Component} from 'react';
 import {Layout, Menu, Icon} from 'antd';
 import styles from './layout.module.css'
 import {withRouter} from 'react-router-dom';
+import store from "../store";
+import LoginOut from '../components/LoginOut'
 
 const {Header, Sider, Content} = Layout;
 
 class Layouts extends Component {
-  /*constructor(props) {
+  constructor(props) {
     super(props);
-  }*/
+    store.subscribe(() => {
+      const {token} = store.getState().app;
+      this.state.isLogin = !!token;
+    });
+    const {token} = store.getState().app;
+    setTimeout(() => {
+      if (!token) props.history.replace('/login');
+    }, 2)
+  }
 
   state = {
     collapsed: false,
@@ -20,10 +30,8 @@ class Layouts extends Component {
     });
   };
 
-
   render() {
     let {children} = this.props;
-
     return (
       <Layout style={{height: '100vh'}}>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -44,12 +52,13 @@ class Layouts extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{background: '#fff', padding: 0}}>
+          <Header className={styles.header}>
             <Icon
               className={styles.trigger}
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <LoginOut/>
           </Header>
           <Content
             style={{

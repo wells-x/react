@@ -1,26 +1,25 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {getUserList} from "../../api/user";
-import {Table} from "antd";
+import {Table, Spin} from "antd";
 import {Link} from "react-router-dom";
 
 class UserList extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    this.state = {userList: []};
     this.initList()
   }
 
+  state = {userList: [], loading: true};
+
   initList = () => {
     getUserList().then(res => {
-      console.log(res);
-      this.setState({userList: res.data})
+      this.setState({userList: res.data, loading: false})
     })
   };
 
   render() {
 
-    let {userList} = this.state;
+    let {userList = [], loading} = this.state;
 
     const columns = [
       {
@@ -47,7 +46,9 @@ class UserList extends Component {
 
     return (
       <div>
-        <Table rowKey="id" dataSource={userList} columns={columns}/>
+        <Spin spinning={loading}>
+          <Table rowKey="id" dataSource={userList} columns={columns}/>
+        </Spin>
       </div>
     )
   }
