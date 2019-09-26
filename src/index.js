@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import Routes from './router';
-// import Layout from './view/Layouts'
+import Promise from 'promise-polyfill';
 import './index.css';
-ReactDOM.render(<Routes />, document.getElementById('root'));
+
+if (!window.Promise) {
+  window.Promise = Promise;
+}
+
+ReactDOM.render(<Routes/>, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
