@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import './login.scss';
 import {connect} from 'react-redux';
 import {saveToken} from "../../store/account/action";
-import {Form, Input, Tooltip, Icon, Checkbox, Button, AutoComplete, Row, Col, message,} from 'antd';
+import {Form, Input, Tooltip, Icon, Checkbox, Button, AutoComplete, message,} from 'antd';
 import {Link} from "react-router-dom"
 import style from './index.module.css'
 import {register} from "../../api/account";
