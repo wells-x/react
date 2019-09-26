@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import store from "../store";
 import {saveToken} from "../store/account/action";
 import {message} from "antd";
-
+console.log(process.env.REACT_APP_PROXY, process.env.PROXY);
 let quitStyle = {
   cursor: 'pointer',
   color: '#1890ff'
