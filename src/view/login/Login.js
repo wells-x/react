@@ -2,7 +2,7 @@
  * Create by wells
  * @date
  */
-import React, {Component} from 'react';
+import React, {Component,} from 'react';
 import './login.scss';
 import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
 import style from './index.module.css';
@@ -15,25 +15,23 @@ import {Link} from 'react-router-dom'
 class NormalLoginForm extends Component {
   constructor(props,) {
     super(props);
-    console.log(this);
     this.state = {username: 'wells', password: '123456'}
   }
 
   handleSubmit = e => {
-    console.log(this.props);
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         login({account: values.username, password: values.password})
           .then(res => {
-            console.log(res);
             this.props.SaveToken(res.data.token);
             this.props.history.push('/');
             console.log(store.getState());
           })
           .catch(e => {
-            message.error(e.msg);
+            // console.log(e.response.status);
+            // console.dir(e);
+            message.error(e.msg || e.message);
           })
       }
     });
@@ -103,7 +101,6 @@ function mapState(state,) {
 function mapDispatch(dispatch, ownProps) {
   return {
     SaveToken: (s) => {
-      console.log(s, ownProps);
       dispatch(saveToken(s));
     },
     Decrement: () => {

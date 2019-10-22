@@ -11,7 +11,6 @@ try {
 let defaultState = {
   token: token || '',
 };
-console.log(defaultState);
 // 首页表单数据
 export const app = (state = defaultState, action = {}) => {
   switch (action.type) {

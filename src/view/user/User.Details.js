@@ -6,7 +6,7 @@ class Details extends Component {
     super(props);
     console.log(props);
     const {id} = props.match.params;
-    this.state = {id, user: {id: ''}};
+    this.state = {id, user: null};
     this.getDetailsData()
   }
 
@@ -23,10 +23,8 @@ class Details extends Component {
 
   render() {
     let {user} = this.state;
-
-    console.log(user);
     return (
-      <div>{JSON.stringify(user)}</div>
+      <div>{user ? JSON.stringify(user) : ''}</div>
     )
   }
 }

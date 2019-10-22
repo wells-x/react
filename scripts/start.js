@@ -99,10 +99,14 @@ checkBrowsers(paths.appPath, isInteractive)
     // Load proxy config
     // const proxySetting = require(paths.appPackageJson).proxy;
     console.log(process.env.REACT_APP_PROXY, process.env.PROXY);
+    let proxyUrl = {
+      local: "http://localhost:8088/",
+      test: "http://localhost:8888/",
+    };
     const proxyConfig = {
       "/r/": {
         // "target": "http://localhost:8088",
-        "target": "http://localhost:8088/",
+        "target": proxyUrl[process.env.PROXY],
         // "target": "http://localhost:8080",
         // "target": "http://47.106.10.199",
         "changeOrigin": true,
