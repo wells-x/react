@@ -37,9 +37,9 @@ class UserList extends Component {
   };
 
   pageChange = async (s) => {
-    await this.setState({page: {current: s.current,}, loading: true});
+    await this.setState({page: {...this.state.page, current: s.current,}, loading: true});
     this.props.history.replace({pathname: '/users', state: s});
-    this.setState({});
+    // this.setState({});
     this.init();
   };
 
