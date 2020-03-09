@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import SodukuMap from "./map";
 import './index.scss'
+import {AutoFill} from './autoFill'
 
 class Soduku extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class Soduku extends Component {
       map,
       selectPoint: {}
     };
+    new AutoFill(map)
   }
 
   getPoint(row, col) {
@@ -70,6 +72,8 @@ class Soduku extends Component {
   chooseNum(i) {
     let {row, col} = this.state.selectPoint;
     let map = this.state.map;
+    let currentPoint = map.maps[row][col];
+    if (currentPoint.isDefault) return;
     map.maps[row][col].value = i;
     this.setState({map}, () => {
       let status = this.state.map.checkAllPoints(row, col);
@@ -97,15 +101,15 @@ class Soduku extends Component {
                 <span
                   className={this.setClass(column,)}
                   onClick={() => this.getPoint(i, j)}
-                  key={j}>{column.value}</span>
+                  key={j}>{column.value || ''}</span>
               )
             }</div>))
           }
         </div>
-        <div className="sudoku-row" style={{margin: '20px 0 0'}}>
-          {new Array(9).fill('').map((v, i) =>
-            <span onClick={() => this.chooseNum(i + 1)}
-                  className="sudoku-point" key={i}>{i + 1}</span>)}
+        <div className="sudoku-choose" style={{margin: '20px 0 0'}}>
+          {new Array(10).fill('').map((v, i) =>
+            <span onClick={() => this.chooseNum(i)}
+                  className="sudoku-point" key={i}>{i || ''}</span>)}
         </div>
       </section>
     )

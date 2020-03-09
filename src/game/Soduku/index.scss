@@ -14,43 +14,61 @@
     justify-content: space-between;
     height: 600px;
 
-  }
-
-  .sudoku-row {
-    display: flex;
-    justify-content: space-between;
-    line-height: 64px;
-
-    &:nth-child(3n) {
-      margin-bottom: 2px;
-    }
-
-    .sudoku-point {
-      display: inline-block;
-      width: 64px;
-      text-align: center;
-      background: #eeeeee;
+    .sudoku-row {
+      display: flex;
+      justify-content: space-between;
+      height: 10.6%;
 
       &:nth-child(3n) {
-        margin-right: 2px;
+        margin-bottom: 0.5%;
       }
 
-      &.select {
-        background: #8b7f9f;
-      }
+      .sudoku-point {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 10.6%;
+        text-align: center;
+        background: #eeeeee;
 
-      &.default {
-        background-color: #ffeee2;
-      }
+        &:nth-child(3n) {
+          margin-right: 0.5%;
+        }
 
-      &.warn {
-        background: #ffd39c;
-      }
+        &.select {
+          background: #8b7f9f;
+        }
 
-      &.error {
-        background: #ff7772;
-      }
+        &.default {
+          background-color: #ffeee2;
+        }
 
+        &.warn {
+          background: #ffd39c;
+        }
+
+        &.error {
+          background: #ff7772;
+        }
+
+      }
+  }
+
+  }
+
+  .sudoku-choose {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+
+    .sudoku-point {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+      background: #eeeeee;
     }
   }
 }

@@ -1,12 +1,18 @@
 import {isArray} from "../../utils/judge-type";
 
-class Sudoku {
-  constructor({width = 9, height = 9, defaultPoints = []}) {
+class SudokuMap {
+  constructor({width = 9, height = 9, defaultPoints = []} = {}) {
     this.width = Number(width) || this.width;
     this.height = Number(height) || this.height;
     this.defaultPoints = isArray(defaultPoints) ? defaultPoints : [];
     this.creatMap()
   }
+
+
+  width = 9;
+  height = 9;
+
+  maps = [];
 
   // 创建数独地图
   creatMap() {
@@ -22,6 +28,9 @@ class Sudoku {
     this.maps = maps;
   }
 
+  clearMap() {
+    this.creatMap()
+  }
 
   // 初始化原始数独点
   initDefaultPoints(maps, points) {
@@ -31,11 +40,6 @@ class Sudoku {
     });
     return maps;
   }
-
-  width = 9;
-  height = 9;
-
-  maps = [];
 
   // 获取所有相关点
   getAllPoint(row, col) {
@@ -49,12 +53,13 @@ class Sudoku {
     return arr;
   }
 
-  checkAllPoints(row, col) {
+  checkAllPoints(row, col, value = 0) {
     let arr = this.getAllPoint(row, col);
-    let point = this.maps[row][col];
+    let pointValue = value || this.maps[row][col].value;
     this.maps.forEach(rows => rows.forEach(item => item.status === 'warn' && (item.status = '')));
-    let findPoint = arr.find(item => item.value === point.value && (item.row !== row || item.column !== col));
+    let findPoint = arr.find(item => item.value === pointValue && (item.row !== row || item.column !== col));
     findPoint && (findPoint.status = 'warn');
+    // findPoint ? (findPoint.status = 'warn') : findPoint.status = '';
     return !findPoint;
   }
 
@@ -104,5 +109,5 @@ class Point {
   status = '';
 }
 
-export default Sudoku
-export {Sudoku}
+export default SudokuMap
+export {SudokuMap}
