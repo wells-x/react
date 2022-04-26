@@ -2,9 +2,8 @@ import {SudokuMap} from "./map";
 
 class AutoFill {
   constructor(maps) {
-    if (!maps instanceof SudokuMap) throw new Error('请传入数独实体类');
+    // if (!maps instanceof SudokuMap) throw new Error('请传入数独实体类');
     this.maps = maps;
-    this.getAllLine();
   }
 
   maps = new SudokuMap();

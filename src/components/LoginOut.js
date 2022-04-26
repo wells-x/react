@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {withRouter} from 'react-router-dom'
 import store from "../store";
 import {saveToken} from "../store/account/action";
 import {message} from "antd";
@@ -29,4 +28,4 @@ class LoginOut extends Component {
   }
 }
 
-export default withRouter(LoginOut);
+export default LoginOut;

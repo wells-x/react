@@ -1,29 +1,28 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
-import {store} from "../../store";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    store.subscribe(() => {
-      const {token} = store.getState().app;
-      this.state.isLogin = !!token;
-    })
-  }
+  // constructor(props) {
+  //   super(props);
+  //   store.subscribe(() => {
+  //     const {token} = store.getState().app;
+  //     this.state.isLogin = !!token;
+  //   })
+  // }
 
-  state = (function () {
-    const {token} = store.getState().app;
-    return {
-      isLogin: !!token
-    }
-  })();
+  // state = (function () {
+  //   const {token} = store.getState().app;
+  //   return {
+  //     isLogin: !!token
+  //   }
+  // })();
 
 
   render() {
     return (
-      <div>
+      <div className='home'>
         {
-          this.state.isLogin ?
+          true ?
             <Link to={'/users'}>用户列表</Link> :
             <Link to={"/login"}>登录</Link>
         }

@@ -1,7 +1,7 @@
-import {isArray} from "../../utils/judge-type";
+import { isArray } from "../../utils/judge-type";
 
 class SudokuMap {
-  constructor({width = 9, height = 9, defaultPoints = []} = {}) {
+  constructor({ width = 9, height = 9, defaultPoints = [] } = {}) {
     this.width = Number(width) || this.width;
     this.height = Number(height) || this.height;
     this.defaultPoints = isArray(defaultPoints) ? defaultPoints : [];
@@ -11,7 +11,7 @@ class SudokuMap {
 
   width = 9;
   height = 9;
-
+  defaultPoints = null;
   maps = [];
 
   // 创建数独地图
@@ -20,7 +20,7 @@ class SudokuMap {
     for (let row = 0; row < this.height; row++) {
       let arr = [];
       for (let column = 0; column < this.width; column++) {
-        arr[column] = new Point({value: '', isDefault: false, row, column})
+        arr[column] = new Point({ value: '', isDefault: false, row, column })
       }
       maps[row] = arr
     }
@@ -35,8 +35,8 @@ class SudokuMap {
   // 初始化原始数独点
   initDefaultPoints(maps, points) {
     points.forEach((item) => {
-      let {row, column, value} = item;
-      maps[row][column] = new Point({...maps[row][column], value, isDefault: true})
+      let { row, column, value } = item;
+      maps[row][column] = new Point({ ...maps[row][column], value, isDefault: true })
     });
     return maps;
   }
@@ -93,21 +93,52 @@ class SudokuMap {
 }
 
 class Point {
-  constructor({row, column, value, isDefault = false, status}) {
+  constructor(
+    { row, column, value = '', isDefault = false, status = '', map = null }:
+      {
+        row: number, column: number, value?: string | number, isDefault?: boolean,
+        status?: string, map?: SudokuMap
+      }
+  ) {
     this.row = row;
     this.column = column;
-    this.value = Number.parseInt(value) || '';
+    this.value = Number.parseInt(value + '') || '';
     this.isDefault = isDefault;
+    this.sodukuMap = map;
     let statusList = ['', 'warn', 'error',];
     this.status = statusList.includes(status) ? status : statusList[0]
   }
 
+  private sodukuMap: SudokuMap = null;
+
+  public set map(v: SudokuMap) {
+    this.sodukuMap = v;
+    this.getValue();
+  }
+
+
+  public get map(): SudokuMap {
+    return this.sodukuMap;
+  }
+
+  checkValue = null;
+
   row = 0;
   column = 0;
-  value = '';
+  value: number | '' = '';
   isDefault = false;
   status = '';
+  getValue() {
+    const { row, column, value = '', isDefault = false, status = '', map = null } = this.map.maps?.[this.row][this.column]
+    this.row = row;
+    this.column = column;
+    this.value = Number.parseInt(value + '') || '';
+    this.isDefault = isDefault;
+    this.sodukuMap = map;
+    this.status = status;
+    return this.value;
+  }
 }
 
 export default SudokuMap
-export {SudokuMap}
+export { SudokuMap, Point }

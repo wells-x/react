@@ -4,14 +4,15 @@ import {Table, Spin, Button} from "antd";
 
 class UserList extends Component {
   constructor(props) {
-    super(props);
-    let {current = 1} = props.history.location.state || {};
+    super(props.history);
+    // let {current = 1} = props.history.location.state || {};
+    console.log(props);
     this.state = {
       userList: [],
       loading: true,
       page: {
         total: 0,
-        current,
+        // current,
         pageSize: 2
       }
     };
