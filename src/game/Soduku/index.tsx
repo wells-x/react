@@ -8,6 +8,7 @@ class Soduku extends Component {
     this.state = {
       tryData: this.tryData,
       chooseSpan: this.chooseSpan,
+      times: 0,
     };
   }
 
@@ -19,10 +20,14 @@ class Soduku extends Component {
 
   state: {
     tryData: Array<Array<string>>,
-    chooseSpan: { x: number, y: number }
+    chooseSpan: { x: number, y: number },
+    times: number
   }
 
   startAutoFill() {
+    if (this.state.times) {
+      return;
+    }
     // console.log(this.tryData);
     console.time();
 
@@ -63,8 +68,12 @@ class Soduku extends Component {
       return !checkList.includes(value);
 
     }
+    // 尝试次数
+    let times = 0
     // 尝试填充
     const doCheck = ({ x, y }) => {
+      
+      this.setState({ times: times++ })
       // 如果默认存在，填充下一个点
       if (this.game[y][x]) {
         this.tryData[y][x] = this.game[y][x];
@@ -75,29 +84,27 @@ class Soduku extends Component {
       const checkValue = (this.tryData[y][x] || 0) + 1;
       if (checkValue > 9) {
         this.tryData[y][x] = '';
-        // this.setState({ tryData: this.tryData })
-        // setTimeout(() => {
+
         doCheck(getPrev({ x, y }))
-        // }, 0);
         return;
       }
 
       // 尝试填充当前点
       this.tryData[y][x] = checkValue;
       const checkPass = check({ x, y });
-      // console.log(checkValue, checkPass);
 
-      // this.setState({ tryData: this.tryData })
+      // 当前点验证不通过
       if (!checkPass) {
         doCheck({ x, y })
         return;
       }
-      // console.log('pass:', checkValue);
+      // 验证完成最后一个点
       if (x === 8 && y === 8) {
-        console.timeEnd();
         console.log('success');
-        this.setState({ tryData: this.tryData })
-        console.log(this.tryData);
+        console.timeEnd();
+        console.log(times);
+        this.setState({ tryData: this.tryData, times: 0 })
+        console.table(this.tryData);
         return;
       }
       setTimeout(() => {
@@ -120,6 +127,11 @@ class Soduku extends Component {
     this.setState({ chooseSpan: this.chooseSpan })
   }
 
+  modelClick() {
+    this.chooseSpan = null;
+    this.setState({ chooseSpan: this.chooseSpan })
+  }
+
   setIconClass(y, x,) {
     const classList = [
       'sudoku-point',
@@ -136,27 +148,30 @@ class Soduku extends Component {
   }
 
   render() {
-    const { tryData, chooseSpan } = this.state;
+    const { tryData, chooseSpan, times } = this.state;
     return (
-      <section className="sudoku-box">
-        <h3>数独</h3>
-        <div className="sudoku-map">{
-          new Array(9).fill('').map((v, i) => {
-            return <div className="sudoku-row" key={i}> {
-              new Array(9).fill('').map((v, j) => {
-                return <span className={this.setIconClass(i, j)} onClick={() => this.chooseNum(i, j)}
-                  title={`${i + 1},${j + 1}`} key={j}>{this.game[i][j] || tryData[i][j]}</span>
-              })
-            } </div>
-          })
-        }</div>
-        <div className="sudoku-choose" style={{ margin: '20px 0 0' }}>
-          {new Array(9).fill('').map((v, i) =>
-            <span onClick={() => this.setValue(chooseSpan.x, chooseSpan.y, i + 1)} className="sudoku-point" key={i + 1}>{i + 1 || ''}</span>)
-          }
-          <span onClick={() => this.startAutoFill()} className="sudoku-point">auto</span>
-        </div>
-      </section>
+      <div onClick={() => this.modelClick()}>
+        <section className="sudoku-box">
+          <h3>数独</h3>
+          <div className="sudoku-map">{
+            new Array(9).fill('').map((v, i) => {
+              return <div className="sudoku-row" key={i}> {
+                new Array(9).fill('').map((v, j) => {
+                  return <span className={this.setIconClass(i, j)} onClick={(e) => { e.preventDefault(); e.stopPropagation(); this.chooseNum(i, j) }}
+                    title={`${i + 1},${j + 1}`} key={j}>{this.game[i][j] || tryData[i][j]}</span>
+                })
+              } </div>
+            })
+          }</div>
+          <div className="sudoku-choose" style={{ margin: '20px 0 0' }}>
+            {
+              new Array(9).fill('').map((v, i) =>
+                <span onClick={() => this.setValue(chooseSpan.x, chooseSpan.y, i + 1)} className="sudoku-point" key={i + 1}>{i + 1 || ''}</span>)
+            }
+            <span onClick={() => this.startAutoFill()} className="sudoku-point">{times ? times : 'auto'}</span>
+          </div>
+        </section>
+      </div>
     )
   }
 }
